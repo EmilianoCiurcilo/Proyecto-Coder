@@ -10,19 +10,17 @@
 
     let comprar = prompt(`Hola ${cliente} Bienvenid@ a FrutifitMix, desea realizar una compra? "si" - "no"`)
 
-    while(comprar != "si" && comprar != "no");{
+    while(comprar != "si" && comprar != "no"){
         alert('Porfavor ingrese "si" o "no"')
         comprar = prompt(`Hola ${cliente} Bienvenid@ a FrutifitMix, desea realizar una compra? "si" - "no"`)
     }
 
     if (comprar == "si"){
-        comprar = prompt('Ingrese el producto que desea comprar: "Almendras" - "Mani" - "Nueces"')
+        comprar = alert('Nuestos productos y precios por kg son: "Almendras $1000" - "Mani $500" - "Nueces $700"')
     }
     else if (comprar == "no"){
         alert('¡Gracias por su visita, vuelva pronto!')
     }
-
-    
     
     while(comprar != "no"){
     let producto = prompt ('Ingrese el producto que desea comprar: "Almendras" - "Mani" - "Nueces"')
@@ -43,21 +41,30 @@
             break;
         }
         let kilos = parseInt(prompt('Cuántos KG desea comprar?'))
+        while(isNaN(kilos)){
+            alert('Porfavor ingrese solo valores numéricos')
+            kilos = parseInt(prompt('Cuántos KG desea comprar?'))
+        }
     carrito.push({producto, kilos, precio})
+        let precioporkg = 0
+        function total (kilos, precio){
+            precioporkg = kilos*precio
+            }
+        total(kilos, precio, producto);
+        alert(`Agregaste ${kilos}kg de ${producto} al carrito`)
+        console.log(`El total a pagar por ${kilos}kg de ${producto} es de $${precioporkg}`)
     }
     else {
         alert ('Elija una opción válida')
         }
-        comprar = prompt ('Desea comprar otro producto?')
+        comprar = prompt ('Desea comprar otro producto? "si" - "no"')
 
+        while(comprar != "si" && comprar != "no"){
+            alert('Porfavor ingrese "si" o "no"')
+            comprar = prompt ('Desea comprar otro producto? "si" - "no"')
+        }
         while(comprar === "no"){
             alert('¡Gracias por su visita, vuelva pronto!')
             break
         }
     }
-    console.log(carrito)
-
-    let total = function (precio){
-    console.log(`${precio*kilos}`)
-    }
-    
