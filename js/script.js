@@ -2,6 +2,7 @@
 class producto {
     constructor(producto, cantidad) {
         this.precio = producto.precio;
+        this.nombre = producto.nombre
         this.cantidad = cantidad;
         this.precioTotal = producto.precio;
     }
@@ -17,56 +18,56 @@ class producto {
 }
 const productos = [
     {
-    id: "FS1",
+    id: "0",
     nombre: "Almendras", 
     precio: 1000,
     categoria: "frutos secos",
     img:"./imagenes/almendras.jpg"
     },
     {
-    id: "FS2",
+    id: "1",
     nombre: "Mani", 
     precio: 500,
     categoria: "frutos secos",
     img:"./imagenes/mani.jpeg"
     },      
     {
-    id: "FS3",
+    id: "2",
     nombre: "Nueces", 
     precio: 700,
     categoria: "frutos secos",
     img:"./imagenes/nueces.jpg"
     },
     {
-    id : "FD1",
+    id : "3",
     nombre: "Pasas de uva negras", 
     precio: 200,
     categoria: "frutas deshidratados",
     img:"./imagenes/pasas-negras.png"
     },
     {
-    id : "FD2",
+    id : "4",
     nombre: "Pasas de uva rubias", 
     precio: 250,
     categoria: "frutas deshidratados",
     img:"./imagenes/pasas-rubias.jpg"
     },
     {
-    id : "C1",
+    id : "5",
     nombre: "Aritos frutales", 
     precio: 200,
     categoria: "cereales",
     img:"./imagenes/aritos-frutales.png"        
     },
     {
-    id : "C2",
+    id : "6",
     nombre: "Almohaditas", 
     precio: 300,
     categoria: "cereales",
     img:"./imagenes/almohaditas.png"       
     },
     {
-    id : "C3",
+    id : "7",
     nombre: "Copos de maiz", 
     precio: 300,
     categoria: "cereales",
@@ -74,11 +75,12 @@ const productos = [
     },
     ];
 
+let carrito = [];
+
 function chequearCarritoStorage() {
     let contenidoStorage = JSON.parse(localStorage.getItem("carritoStorage"));
 
     if (contenidoStorage) {
-        let carrito = [];
         for (const objeto of contenidoStorage) {
             let producto = new producto(objeto, objeto.cantidad);
             producto.precioFinal();
@@ -117,7 +119,6 @@ function agregarProducto(idProducto){
     let productoEnCarrito = carrito.find((producto) => producto.id === idProducto);
 
     if (productoEnCarrito) {
-        
         let index = carrito.findIndex((elemento) => elemento.id === productoEnCarrito.id);
         carrito[index].agregarUnidad();
     }
@@ -181,13 +182,13 @@ function tabla(carrito) {
     for (let producto of carrito) {
         let datos = document.createElement("tr");
         datos.innerHTML = `
-            <td>${alfajor.marca}</td>
-            <td>${alfajor.cantidad}</td>
-            <td>$${alfajor.precioTotal}</td>`;
+            <td>${producto.nombre}</td>
+            <td>${producto.cantidad}</td>
+            <td>$${producto.precioTotal}</td>`;
 
         bodyTabla.appendChild(datos);
     }
-    let accionesCarrito = document.getElementById("acciones-carrito");
+    let accionesCarrito = document.getElementById("acciones");
     accionesCarrito.innerHTML = `
 		<h5>PrecioTotal: $${precioTotal}</h5></br>`;
 }
