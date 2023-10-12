@@ -1,0 +1,58 @@
+[
+    {
+    "id": 0,
+    "nombre": "Almendras", 
+    "precio": 1000,
+    "categoria": "frutos secos",
+    "img":"./imagenes/almendras.jpg"
+    },
+    {
+    "id": 1,
+    "nombre": "Mani", 
+    "precio": 500,
+    "categoria": "frutos secos",
+    "img":"./imagenes/mani.jpeg"
+    },      
+    {
+    "id": 2,
+    "nombre": "Nueces", 
+    "precio": 700,
+    "categoria": "frutos secos",
+    "img":"./imagenes/nueces.jpg"
+    },
+    {
+    "id" : 3,
+    "nombre": "Pasas de uva negras", 
+    "precio": 200,
+    "categoria": "frutas deshidratados",
+    "img":"./imagenes/pasas-negras.png"
+    },
+    {
+    "id" : 4,
+    "nombre": "Pasas de uva rubias", 
+    "precio": 250,
+    "categoria": "frutas deshidratados",
+    "img":"./imagenes/pasas-rubias.jpg"
+    },
+    {
+    "id" : 5,
+    "nombre": "Aritos frutales", 
+    "precio": 200,
+    "categoria": "cereales",
+    "img":"./imagenes/aritos-frutales.png"        
+    },
+    {
+    "id" : 6,
+    "nombre": "Almohaditas", 
+    "precio": 300,
+    "categoria": "cereales",
+    "img":"./imagenes/almohaditas.png"       
+    },
+    {
+    "id" : 7,
+    "nombre": "Copos de maiz", 
+    "precio": 300,
+    "categoria": "cereales",
+    "img":"./imagenes/copos-de-maiz.jpg"
+    }
+]
