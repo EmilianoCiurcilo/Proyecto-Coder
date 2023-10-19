@@ -1,19 +1,29 @@
 body {
     margin: 0;
 }
-/* div{
+div{
     display:flex;
-} */
+}
 .card{
     display:flex;
     justify-content: left;
     align-items: center;
     margin: 10px;
     border-color:gray ;
+    width: 200px;
+    height: 270px;
 }
-.card .card-text{
+.card-text{
     display: flex;
     color: rgb(0, 140, 255) ;
+}
+.card-title{
+    display: flex;
+    padding-top: 10px;
+}
+.contenedorCard {
+    display:flex;
+    justify-content: center;
 }
 .btn{
     display: flex;
@@ -25,4 +35,66 @@ body {
 .btn:hover{
     background-color: rgb(23, 168, 23);
     color: black;
+}
+.card-img-top{
+    width: 199px;
+    height: 140px;
+}
+.buscador{
+    display: flex;
+    border-radius: 10px;
+    justify-content: center;
+    padding: 4px;
+    border-color: rgb(177, 177, 177);
+    margin-left: 730px;
+    margin-bottom: 20px;
+}
+.bi-cart-plus-fill{
+    display: flex;
+    padding-top: 12px ;
+    border-color:rgb(177, 177, 177);
+    border-radius: 10px;
+    text-align: center;
+}
+.contenidoHeader {
+    display: flex;
+    padding: 10px;
+}
+.titulo{
+    display: flex;
+    padding-right: 1600px;
+}
+.contenedorModal{
+    width: 80%;
+    margin: 0 10%;
+    max-height: 88vh;
+    color:white;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    overflow: auto;
+    z-index: 9;
+    top: 12vh;
+    scrollbar-color: none;
+}
+.contenidoHeader{
+    display: flex;
+    justify-content: space-around;
+    background-color: black;
+    color: white;
+    width: 100%;
+}
+.contenedorModal > .carritoModal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+    margin: 10px;
+}
+.contenedorModal > div > img {
+    height: 250px;
+    width: 250px;
 }
