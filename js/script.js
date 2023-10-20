@@ -41,19 +41,21 @@ const logoCarrito = document.querySelector("#logoCarrito")
 logoCarrito.addEventListener("click", () => {
     contenedorModal.innerHTML = ""
     contenedorModal.style.display = "flex"
-    let modal = document.createElement("div");
+    const modal = document.createElement("div");
     modal.className = "modal"
     modal.innerHTML = 
     `<h2 class="modal-titulo"> TU CARRITO </h2>
     <button id="modal-x" class="bi bi-x-circle"></button>`
 
- const modalX = document.querySelector("#modal-x")
-
-modalX.addEventListener("click", () => {
-    contenedorModal.style.display = "none"
-    })
     contenedorModal.appendChild(contenidoHeader);
     contenidoHeader.appendChild(modal)
+
+    const modalX = document.querySelector("#modal-x")
+
+    modalX.addEventListener("click", () => {
+    contenedorModal.style.display = "none"
+    })
+    contenedorModal.appendChild(modalX)
     
     carrito.forEach((producto) => {
     let carritoModal = document.createElement("div")
@@ -66,15 +68,16 @@ modalX.addEventListener("click", () => {
 
     contenedorModal.appendChild(carritoModal)
     })
+const total = carrito.reduce ((acc, producto) => acc + producto.precio, 0 )
 
-    const total = carrito.reduce ((acc, producto) => acc + producto.precio, 0 )
+const precioTotal = document.createElement("div");
+precioTotal.className = "precioTotal"
+precioTotal.innerHTML = `el total a pagar es $${total}`
 
-    const precioTotal = document.createElement("div");
-    precioTotal.className = "precioTotal"
-    precioTotal.innerHTML = `el total a pagar es $${total}`
-
-    contenedorModal.appendChild(precioTotal)
+contenedorModal.appendChild(precioTotal)
 })
+
+
 
 const traerProductos = async () => {
     const respuesta = await fetch('./productos.json')
