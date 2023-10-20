@@ -6,7 +6,7 @@ const buscador = document.querySelector("#buscador")
 let carrito = []
 
 buscador.addEventListener("input", () => {
-    const buscadorValue = buscador.value.trim().toLowerCase()
+    const buscadorValue = buscador.value.trim().toUpperCase()
 
     if (buscadorValue == "") {
         traerProductos()
@@ -14,7 +14,7 @@ buscador.addEventListener("input", () => {
         fetch("./productos.json")
             .then(resp => resp.json())
             .then(productos => {
-                const productosFiltrados = productos.filter((productos) => productos.nombre.filter(buscadorValue))
+                const productosFiltrados = productos.filter((productos) => productos.nombre.includes(buscadorValue))
                 if (productosFiltrados.length > 0) {
                     mostrarProductos (productosFiltrados)
                 } else {
@@ -39,16 +39,10 @@ abrirCarrito.appendChild(contenidoHeader)
 const logoCarrito = document.querySelector("#logoCarrito")
 
 logoCarrito.addEventListener("click", () => {
-    contenedorModal.innerHTML = ""
-    contenedorModal.style.display = "flex"
-    const modal = document.createElement("div");
-    modal.className = "modal"
-    modal.innerHTML = 
-    `<h2 class="modal-titulo"> TU CARRITO </h2>
-    <button id="modal-x" class="bi bi-x-circle"></button>`
-
-    contenedorModal.appendChild(contenidoHeader);
-    contenidoHeader.appendChild(modal)
+    contenedorModal.innerHTML = 
+    `<button id="modal-x" class="bi bi-x-circle"></button>
+    <h2 class="modalTitulo">TU CARRITO</h2>`
+    contenedorModal.style.display ="flex"
 
     const modalX = document.querySelector("#modal-x")
 
@@ -72,7 +66,9 @@ const total = carrito.reduce ((acc, producto) => acc + producto.precio, 0 )
 
 const precioTotal = document.createElement("div");
 precioTotal.className = "precioTotal"
-precioTotal.innerHTML = `el total a pagar es $${total}`
+precioTotal.innerHTML = 
+`el total a pagar es $${total}
+<button id="finalizarCompra" class="finalizarCompra">FINALIZAR COMPRA</button>`
 
 contenedorModal.appendChild(precioTotal)
 })
