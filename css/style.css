@@ -7,7 +7,7 @@ div{
 }
 .card{
     display:flex;
-    justify-content: left;
+    text-align: center;
     align-items: center;
     margin: 10px;
     border-color:gray ;
@@ -61,14 +61,6 @@ div{
     border:none;
     font-size: 20px;
 }
-.contenidoHeader {
-    display: flex;
-    padding: 10px;
-}
-.titulo{
-    display: flex;
-    padding-right: 1600px;
-}
 .contenedorModal{
     width: 80%;
     margin: 0 10%;
@@ -85,8 +77,9 @@ div{
     scrollbar-color: none;
 }
 .contenidoHeader{
+    padding: 10px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: rgba(209, 56, 0, 0.89);
     color: white;
     width: 100%;
@@ -119,4 +112,8 @@ div{
     text-align: left;
     margin-top: 15px;
     color: black;
+}
+.precioTotal{
+    display: flex;
+    
 }

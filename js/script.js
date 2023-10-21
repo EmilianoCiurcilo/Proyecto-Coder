@@ -18,11 +18,11 @@ buscador.addEventListener("input", () => {
                 if (productosFiltrados.length > 0) {
                     mostrarProductos (productosFiltrados)
                 } else {
-                    // Swal.fire({
-                    //     title: "Error",
-                    //     text: "No se encontraron productos!",
-                    //     icon: "error"
-                    // })
+                    Swal.fire({
+                        title: "Error",
+                        text: "No se encontraron productos!",
+                        icon: "error"
+                     })
                 }
             })
     }
@@ -67,13 +67,32 @@ const total = carrito.reduce ((acc, producto) => acc + producto.precio, 0 )
 const precioTotal = document.createElement("div");
 precioTotal.className = "precioTotal"
 precioTotal.innerHTML = 
-`el total a pagar es $${total}
-<button id="finalizarCompra" class="finalizarCompra">FINALIZAR COMPRA</button>`
+`<h2 class="piemodal">el total a pagar es $${total}</h2>
+<button id="btncancelar" class="btncancelar">CANCELAR</button>
+<button id="btnfinalizarCompra" class="btnfinalizarCompra">FINALIZAR COMPRA</button>`
+
+const btncancelar = document.querySelector("#btncancelar")
+
+btncancelar.addEventListener ("click", () => {
+    Swal.fire({
+        title: "Error",
+        text: "No se pudo completar su compra",
+        icon: "error"
+     })
+})
+
+const finalizarCompra = document.querySelector("#btnfinalizarCompra")
+
+finalizarCompra.addEventListener(click, () => {
+    Swal.fire({
+        title: "Felicidades",
+        text: "Su compra se realizó con éxito",
+        icon: "success"
+     })
+})
 
 contenedorModal.appendChild(precioTotal)
 })
-
-
 
 const traerProductos = async () => {
     const respuesta = await fetch('./productos.json')
@@ -107,6 +126,4 @@ function mostrarProductos (productos) {
             });
         });
     }
-
-console.log(carrito);
 traerProductos()
