@@ -3,56 +3,56 @@
     "id": 0,
     "nombre": "ALMENDRAS", 
     "precio": 1000,
-    "categoria": "frutos secos",
+    "cantidad": 1,
     "img":"./imagenes/almendras.jpg"
     },
     {
     "id": 1,
     "nombre": "MANI", 
     "precio": 500,
-    "categoria": "frutos secos",
+    "cantidad": 1,
     "img":"./imagenes/mani.jpeg"
     },      
     {
     "id": 2,
     "nombre": "NUECES", 
     "precio": 700,
-    "categoria": "frutos secos",
+    "cantidad": 1,
     "img":"./imagenes/nueces.jpg"
     },
     {
     "id" : 3,
     "nombre": "PASAS DE UVA NEGRAS", 
     "precio": 200,
-    "categoria": "frutas deshidratados",
+    "cantidad": 1,
     "img":"./imagenes/pasas-negras.png"
     },
     {
     "id" : 4,
     "nombre": "PASAS DE UVA RUBIAS", 
     "precio": 250,
-    "categoria": "frutas deshidratados",
+    "cantidad": 1,
     "img":"./imagenes/pasas-rubias.jpg"
     },
     {
     "id" : 5,
     "nombre": "ARITOS FRUTALES", 
     "precio": 200,
-    "categoria": "cereales",
+    "cantidad": 1,
     "img":"./imagenes/aritos-frutales.png"        
     },
     {
     "id" : 6,
     "nombre": "ALMOHADITAS", 
     "precio": 300,
-    "categoria": "cereales",
+    "cantidad": 1,
     "img":"./imagenes/almohaditas.png"       
     },
     {
     "id" : 7,
     "nombre": "COPOS DE MAIZ", 
     "precio": 300,
-    "categoria": "cereales",
+    "cantidad": 1,
     "img":"./imagenes/copos-de-maiz.jpg"
     }
 ]
