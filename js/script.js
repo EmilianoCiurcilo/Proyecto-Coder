@@ -3,7 +3,7 @@ const abrirCarrito = document.querySelector("#abrirCarrito")
 const contenedorModal = document.querySelector("#contenedorModal")
 const buscador = document.querySelector("#buscador")
 
-let carrito = []
+ let carrito = JSON.parse(localStorage.getItem("carritoStorge")) || [];
 
 buscador.addEventListener("input", () => {
     const buscadorValue = buscador.value.trim().toUpperCase()
@@ -44,7 +44,7 @@ logoCarrito.addEventListener("click", () => {
     `<button id="modal-x" class="bi bi-x-circle modalHead"></button>
     <h2 class="modalHead">TU CARRITO</h2>`
     contenedorModal.style.display ="flex"
-
+    
     const modalX = document.querySelector("#modal-x")
 
     modalX.addEventListener("click", () => {
@@ -59,30 +59,19 @@ logoCarrito.addEventListener("click", () => {
     `
     <img src="${producto.img}">
     <h5>${producto.nombre}</h5>
-    <p>$${producto.precio}</p>`
+    <p>$${producto.precio * producto.cantidad}</p>
+    <p>${producto.cantidad} UNIDAD/ES</p>`
 
     contenedorModal.appendChild(carritoModal)
     let eliminar = document.createElement("button")
+    eliminar.setAttribute("id", producto.id)
     eliminar.className = "bi bi-x"
-
-
-    fetch("./productos.json")
-    .then(resp => resp.json())
-    .then(productos => {
-    const eliminarProducto = () => {
-            
-    const buscarId = productos.find((producto) => producto.id)
-    productos = productos.filter((carritoId) => {
-        return carritoId !== buscarId
-    })
-
-    }
+    
+    carritoModal.appendChild(eliminar)
     eliminar.addEventListener("click", eliminarProducto)
     })
-    carritoModal.appendChild(eliminar)
-    })
 
-    const total = carrito.reduce ((acc, producto) => acc + producto.precio, 0 )
+    const total = carrito.reduce ((acc, producto) => acc + producto.precio * producto.cantidad, 0 )
 
     const precioTotal = document.createElement("div")
     precioTotal.className = "precioTotal"
@@ -99,27 +88,33 @@ logoCarrito.addEventListener("click", () => {
         text: "Su compra se realizó con éxito",
         icon: "success"
         })
-     })
+        borrarCarrito()
+        
+    })
 
-    const btnCancelar = document.createElement("button")
-    btnCancelar.className = "btnCancelar"
-    btnCancelar.innerText = "CANCELAR"
-    btnCancelar.addEventListener("click", () => {
+    const btnVaciar = document.createElement("button")
+    btnVaciar.className = "btnCancelar"
+    btnVaciar.innerText = "VACIAR CARRITO"
+    btnVaciar.addEventListener("click", () => {
         Swal.fire({
         title: "Error",
         text: "No se pudo completar su compra",
         icon: "error"
         })
+        borrarCarrito()
+        
     })
     contenedorModal.appendChild(precioTotal)
     precioTotal.appendChild(finalizarCompra)
-    precioTotal.appendChild(btnCancelar)
+    precioTotal.appendChild(btnVaciar)
 })
+
 
 const traerProductos = async () => {
     const respuesta = await fetch('./productos.json')
     const productos = await respuesta.json()
     mostrarProductos(productos)
+    
 }
 traerProductos()
 function mostrarProductos (productos) {
@@ -131,24 +126,54 @@ function mostrarProductos (productos) {
         `
         <img src=${producto.img} class="card-img-top">
         <h5 class="card-title">${producto.nombre}</h5>
-        <p class="card-text">$${producto.precio}</p>
+        <p class="card-text">$${producto.precio * producto.cantidad}</p>
         <button id="agregar${producto.id}" class="btn btn-primary">Agregar al carrito</button>`
     
         contenedorCard.appendChild(contenido)
     
         let agregar = document.querySelector(`#agregar${producto.id}`)
-            
+        
         agregar.addEventListener("click", () => {
-            carrito.push({
-                id: producto.id,
-                nombre: producto.nombre,
-                precio: producto.precio,
-                categoria: producto.categoria,
-                img: producto.img,
-            });
+
+        const repetido = carrito.some((productoRepetido) => productoRepetido.id == producto.id)
+
+            if(repetido){
+                carrito.map((prod) => {
+                    if(prod.id == producto.id){
+
+                    prod.cantidad++
+                    }
+                })
+            }
+            else{
+                carrito.push({
+                    id: producto.id,
+                    nombre: producto.nombre,
+                    precio: producto.precio,
+                    cantidad: producto.cantidad,
+                    img: producto.img,
+                });
+            }
+            guardarStorage()
+            
         });
     });
 }
 
+
+const eliminarProducto = (evento) => {
+    const productoId = evento.target.getAttribute("id")
+    carrito = carrito.filter((producto) => producto.id != productoId )
+
+    guardarStorage()
+}
+
+const guardarStorage = () => {
+    localStorage.setItem("carritoStorage", JSON.stringify(carrito));
+}
+
+const borrarCarrito = () => {
+    localStorage.removeItem("carritoStorage", JSON.stringify(carrito))
+}
 
 
