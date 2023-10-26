@@ -74,6 +74,7 @@ function mostrarProductos (productos) {
                     img: producto.img,
                 });
             }
+            verCarrito()
             guardarStorage()
         });
     });
