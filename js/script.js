@@ -73,8 +73,8 @@ function mostrarProductos (productos) {
                     cantidad: producto.cantidad,
                     img: producto.img,
                 });
+                
             }
-            verCarrito()
             guardarStorage()
         });
     });
