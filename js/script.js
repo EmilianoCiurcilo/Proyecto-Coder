@@ -3,7 +3,8 @@ const abrirCarrito = document.querySelector("#abrirCarrito")
 const contenedorModal = document.querySelector("#contenedorModal")
 const buscador = document.querySelector("#buscador")
 
- let carrito = JSON.parse(localStorage.getItem("carritoStorge")) || [];
+
+let carrito = JSON.parse(localStorage.getItem("carritoStorge")) || [];
 
 buscador.addEventListener("input", () => {
     const buscadorValue = buscador.value.trim().toUpperCase()
@@ -29,17 +30,83 @@ buscador.addEventListener("input", () => {
     }
 })
 
-let contenidoHeader = document.createElement("nav");
+const traerProductos = async () => {
+    const respuesta = await fetch('./productos.json')
+    const productos = await respuesta.json()
+    mostrarProductos(productos)
+    
+}
+
+function mostrarProductos (productos) {
+    contenedorCard.innerHTML = ""
+    productos.forEach((producto) => {
+        let contenido = document.createElement("div");
+        contenido.className = "card";
+        contenido.innerHTML =
+        `
+        <img src=${producto.img} class="card-img-top">
+        <h5 class="card-title">${producto.nombre}</h5>
+        <p class="card-text">$${producto.precio * producto.cantidad}</p>
+        <button id="agregar${producto.id}" class="btn btn-primary">Agregar al carrito</button>`
+    
+        contenedorCard.appendChild(contenido)
+    
+        let agregar = document.querySelector(`#agregar${producto.id}`)
+        
+        agregar.addEventListener("click", () => {
+
+        const repetido = carrito.some((productoRepetido) => productoRepetido.id == producto.id)
+
+            if(repetido){
+                carrito.map((prod) => {
+                    if(prod.id == producto.id){
+
+                    prod.cantidad++
+                    }
+                })
+            }
+            else{
+                carrito.push({
+                    id: producto.id,
+                    nombre: producto.nombre,
+                    precio: producto.precio,
+                    cantidad: producto.cantidad,
+                    img: producto.img,
+                });
+            }
+            guardarStorage()
+        });
+    });
+}
+
+let contenidoHeader = document.createElement("div");
 contenidoHeader.className = "contenidoHeader"
 contenidoHeader.innerHTML =
-`<h2 class="titulo"> FrutiFitMix </h2>
-<button id="logoCarrito" class="bi bi-cart-plus-fill"></button>`
+`<h2 class="titulo"> FrutiFitMix </h2>`
 
 abrirCarrito.appendChild(contenidoHeader)
 
-const logoCarrito = document.querySelector("#logoCarrito")
+const eliminarProducto = (evento) => {
+    const productoId = evento.target.getAttribute("id")
+    carrito = carrito.filter((producto) => producto.id != productoId )
 
-logoCarrito.addEventListener("click", () => {
+    guardarStorage()
+}
+
+const guardarStorage = () => {
+    localStorage.setItem("carritoStorage", JSON.stringify(carrito));
+}
+
+const borrarCarrito = () => {
+    localStorage.removeItem("carritoStorage", JSON.stringify(carrito))
+}
+
+const logoCarrito = document.createElement("button")
+logoCarrito.className = "bi bi-cart-plus-fill"
+
+contenidoHeader.appendChild(logoCarrito)
+
+const verCarrito = () => {
     contenedorModal.innerHTML = 
     `<button id="modal-x" class="bi bi-x-circle modalHead"></button>
     <h2 class="modalHead">TU CARRITO</h2>`
@@ -50,6 +117,7 @@ logoCarrito.addEventListener("click", () => {
     modalX.addEventListener("click", () => {
     contenedorModal.style.display = "none"
     })
+    
     contenedorModal.appendChild(modalX)
 
     carrito.forEach((producto) => {
@@ -89,7 +157,6 @@ logoCarrito.addEventListener("click", () => {
         icon: "success"
         })
         borrarCarrito()
-        
     })
 
     const btnVaciar = document.createElement("button")
@@ -102,78 +169,12 @@ logoCarrito.addEventListener("click", () => {
         icon: "error"
         })
         borrarCarrito()
-        
     })
     contenedorModal.appendChild(precioTotal)
     precioTotal.appendChild(finalizarCompra)
     precioTotal.appendChild(btnVaciar)
-})
-
-
-const traerProductos = async () => {
-    const respuesta = await fetch('./productos.json')
-    const productos = await respuesta.json()
-    mostrarProductos(productos)
-    
 }
+
+logoCarrito.addEventListener("click", verCarrito)
+
 traerProductos()
-function mostrarProductos (productos) {
-    contenedorCard.innerHTML = ""
-    productos.forEach((producto) => {
-        let contenido = document.createElement("div");
-        contenido.className = "card";
-        contenido.innerHTML =
-        `
-        <img src=${producto.img} class="card-img-top">
-        <h5 class="card-title">${producto.nombre}</h5>
-        <p class="card-text">$${producto.precio * producto.cantidad}</p>
-        <button id="agregar${producto.id}" class="btn btn-primary">Agregar al carrito</button>`
-    
-        contenedorCard.appendChild(contenido)
-    
-        let agregar = document.querySelector(`#agregar${producto.id}`)
-        
-        agregar.addEventListener("click", () => {
-
-        const repetido = carrito.some((productoRepetido) => productoRepetido.id == producto.id)
-
-            if(repetido){
-                carrito.map((prod) => {
-                    if(prod.id == producto.id){
-
-                    prod.cantidad++
-                    }
-                })
-            }
-            else{
-                carrito.push({
-                    id: producto.id,
-                    nombre: producto.nombre,
-                    precio: producto.precio,
-                    cantidad: producto.cantidad,
-                    img: producto.img,
-                });
-            }
-            guardarStorage()
-            
-        });
-    });
-}
-
-
-const eliminarProducto = (evento) => {
-    const productoId = evento.target.getAttribute("id")
-    carrito = carrito.filter((producto) => producto.id != productoId )
-
-    guardarStorage()
-}
-
-const guardarStorage = () => {
-    localStorage.setItem("carritoStorage", JSON.stringify(carrito));
-}
-
-const borrarCarrito = () => {
-    localStorage.removeItem("carritoStorage", JSON.stringify(carrito))
-}
-
-
