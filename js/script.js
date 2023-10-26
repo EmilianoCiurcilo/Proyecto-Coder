@@ -91,6 +91,7 @@ const eliminarProducto = (evento) => {
     carrito = carrito.filter((producto) => producto.id != productoId )
 
     guardarStorage()
+    verCarrito()
 }
 
 const guardarStorage = () => {
@@ -156,7 +157,9 @@ const verCarrito = () => {
         text: "Su compra se realizó con éxito",
         icon: "success"
         })
+        carrito.length = 0
         borrarCarrito()
+        verCarrito()
     })
 
     const btnVaciar = document.createElement("button")
@@ -168,7 +171,9 @@ const verCarrito = () => {
         text: "No se pudo completar su compra",
         icon: "error"
         })
+        carrito.length = 0
         borrarCarrito()
+        verCarrito()
     })
     contenedorModal.appendChild(precioTotal)
     precioTotal.appendChild(finalizarCompra)
