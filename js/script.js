@@ -72,8 +72,7 @@ function mostrarProductos (productos) {
                     precio: producto.precio,
                     cantidad: producto.cantidad,
                     img: producto.img,
-                });
-                
+                }); 
             }
             guardarStorage()
         });
@@ -93,14 +92,6 @@ const eliminarProducto = (evento) => {
 
     guardarStorage()
     verCarrito()
-}
-
-const guardarStorage = () => {
-    localStorage.setItem("carritoStorage", JSON.stringify(carrito));
-}
-
-const borrarCarrito = () => {
-    localStorage.removeItem("carritoStorage", JSON.stringify(carrito))
 }
 
 const logoCarrito = document.createElement("button")
@@ -140,13 +131,15 @@ const verCarrito = () => {
     carritoModal.appendChild(eliminar)
     eliminar.addEventListener("click", eliminarProducto)
     })
-
+    
     const total = carrito.reduce ((acc, producto) => acc + producto.precio * producto.cantidad, 0 )
 
     const precioTotal = document.createElement("div")
     precioTotal.className = "precioTotal"
     precioTotal.innerHTML = 
     `<h2 class="piemodal">EL TOTAL A PAGAR ES DE $${total}</h2>`
+
+    guardarStorage()
     
     const finalizarCompra = document.createElement("button")
     finalizarCompra.className = "btnFinalizarCompra"
@@ -182,5 +175,14 @@ const verCarrito = () => {
 }
 
 logoCarrito.addEventListener("click", verCarrito)
+
+
+const guardarStorage = () => {
+    localStorage.setItem("carritoStorage", JSON.stringify(carrito));
+}
+
+const borrarCarrito = () => {
+    localStorage.removeItem("carritoStorage", JSON.stringify(carrito))
+}
 
 traerProductos()
