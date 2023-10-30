@@ -4,7 +4,7 @@ const contenedorModal = document.querySelector("#contenedorModal")
 const buscador = document.querySelector("#buscador")
 
 
-let carrito = JSON.parse(localStorage.getItem("carritoStorge")) || [];
+let carrito = JSON.parse(localStorage.getItem("carritoStorage")) || [];
 
 buscador.addEventListener("input", () => {
     const buscadorValue = buscador.value.trim().toUpperCase()
